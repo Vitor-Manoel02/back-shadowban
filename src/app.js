@@ -1,21 +1,16 @@
-import express from 'express';
-
+import express,{json} from 'express';
+import cors from 'cors';
 import routes from './routes';
 
-class App {
-  constructor() {
-    this.server = express();
-    this.middlewares();
-    this.routes();
-  }
 
-  middlewares() {
-    this.server.use(express.json());
-  }
+const app = express()
 
-  routes() {
-    this.server.use(routes);
-  }
-}
+app.use(cors())
+app.use(json())
+app.use(routes)
 
-export default new App().server;
+app.listen(3010, () => {
+  console.log('Ouvindo a porta 3010');
+});
+
+

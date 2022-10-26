@@ -6,17 +6,23 @@ import {
   getCaptionByMediaId,
   getHashtagId,
   getListOfRecentHashTags,
+  tradeCodeForToken,
 } from './functions';
 
-const getShadowBanStatus = async (token) => {
+const getShadowBanStatus = async (code) => {
+  const token = await tradeCodeForToken(code);
   const pageProfile = await getPageProfileId(token);
+
   const instagramProfileId = await getInstagramProfileId(pageProfile, token);
   // eslint-disable-next-line no-unused-vars
   const instagramMediaCount = await getNumberOfMedias(
     instagramProfileId,
     token,
   );
+
   const listOfPostsFromProfile = await getMediasFromProfile(instagramProfileId, token);
+
+  if(!listOfPostsFromProfile) return null
 
   // Search hashtags used in each post caption
 
@@ -26,6 +32,7 @@ const getShadowBanStatus = async (token) => {
   let permalinkOfMediaFound = '';
   let timestampOfMediaFound = '';
   // eslint-disable-next-line no-restricted-syntax
+ 
   for await (const media of listOfPostsFromProfile) {
     const caption = await getCaptionByMediaId(media.id, token);
     const findHashTag = /#+[a-zA-Z0-9(_)]{1,}/.exec(caption.caption);
