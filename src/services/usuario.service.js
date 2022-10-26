@@ -14,22 +14,28 @@ const getShadowBanStatus = async (token) => {
   // eslint-disable-next-line no-unused-vars
   const instagramMediaCount = await getNumberOfMedias(
     instagramProfileId,
-    token
+    token,
   );
-  const mediaIdList = await getMediasFromProfile(instagramProfileId, token);
+  const listOfPostsFromProfile = await getMediasFromProfile(instagramProfileId, token);
 
   // Search hashtags used in each post caption
 
   let hashTag = '';
   let idOfTheMediaFound = 0;
+  let imageOfMediaFound = '';
+  let permalinkOfMediaFound = '';
+  let timestampOfMediaFound = '';
   // eslint-disable-next-line no-restricted-syntax
-  for await (const media of mediaIdList) {
+  for await (const media of listOfPostsFromProfile) {
     const caption = await getCaptionByMediaId(media.id, token);
-    const findHashTag = /#+[a-zA-Z0-9(_)]{1,}/.exec(caption);
+    const findHashTag = /#+[a-zA-Z0-9(_)]{1,}/.exec(caption.caption);
     if (findHashTag) {
       // eslint-disable-next-line prefer-destructuring
       hashTag = findHashTag[0];
       idOfTheMediaFound = media.id;
+      imageOfMediaFound = caption.media_url;
+      permalinkOfMediaFound = caption.permalink;
+      timestampOfMediaFound = caption.timestamp;
       break;
     }
   }
@@ -37,13 +43,13 @@ const getShadowBanStatus = async (token) => {
   const hashtagId = await getHashtagId(
     instagramProfileId,
     hashTag.replace('#', ''),
-    token
+    token,
   );
 
   const listOfPostsWithSameHashTag = await getListOfRecentHashTags(
     hashtagId,
     instagramProfileId,
-    token
+    token,
   );
 
   let shadowBanned = false;
@@ -53,7 +59,14 @@ const getShadowBanStatus = async (token) => {
       shadowBanned = true;
     }
   }
-  return shadowBanned;
+  return {
+    token,
+    shadowBanned,
+    hashTag,
+    imageOfMediaFound,
+    permalinkOfMediaFound,
+    timestampOfMediaFound,
+  };
 };
 
 // eslint-disable-next-line import/prefer-default-export

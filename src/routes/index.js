@@ -1,6 +1,6 @@
 //  rota inicial:
 import { Router } from 'express';
-import { ShadowSearch } from '../controllers/usuario.controller';
+import { ShadowSearch, UserData } from '../controllers/usuario.controller';
 
 const routes = new Router();
 
@@ -11,6 +11,8 @@ routes.get('/', (req, res) => {
 //  rota para pegar todos usuários:
 
 //  COMEÇA AQUI. Pede o history Info, manda para o controllers>usuario.controller.js
-routes.get('/shadowban', ShadowSearch);
+routes.get('/shadowbanverification', ShadowSearch);
+
+routes.get('/userData', UserData);
 
 export default routes;

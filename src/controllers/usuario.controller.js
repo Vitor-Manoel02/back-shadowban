@@ -7,19 +7,32 @@ const ShadowSearch = async (req, res) => {
   const { token } = req.headers;
   const userData = await getShadowBanStatus(token);
 
-  if(!userData){
+  if (!userData.shadowBanned) {
     return res.status(200).json({
       message: 'Perfil com shadowban!',
       userStatus: 'shadowbanned',
-    });
-  }else{
-    return res.status(200).json({
-      message: 'Perfil sem shadowban!',
-      userStatus: 'clean',
+      token: userData.token,
     });
   }
-  
+  return res.status(200).json({
+    message: 'Perfil sem shadowban!',
+    userStatus: 'clean',
+    token: userData.token,
+  });
+};
+
+const UserData = async (req, res) => {
+  const { token } = req.headers;
+  const userData = await getShadowBanStatus(token);
+  return res.status(200).json({
+    message: 'Perfil sem shadowban!',
+    userStatus: 'clean',
+    hashtagUsed: userData.hashTag,
+    timestamp: userData.timestampOfMediaFound,
+    media_url: userData.imageOfMediaFound,
+    permalink: userData.permalinkOfMediaFound,
+  });
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export { ShadowSearch };
+export { ShadowSearch, UserData };
