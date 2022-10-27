@@ -1,28 +1,47 @@
 import axios from 'axios';
 
+
 async function tradeCodeForToken(code) {
   try {
-    const objectCodeFromApi = await axios.post('https://api.instagram.com/oauth/access_token', {
-      client_id: '623283426120943',
-      client_secret: '171384278e88d155ea39b9cbbceb2478',
-      grant_type: 'authorization_code',
-      redirect_uri: 'https://catalogador.com.br/testingShadow/',
-      code: code,
+    var axios = require('axios');
+    var qs = require('qs');
+    var data = qs.stringify({
+      'client_id': '812880569961304',
+      'client_secret': 'b2691206bea05c9e73af5a1005b9f10c',
+      'grant_type': 'authorization_code',
+      'redirect_uri': 'https://catalogador.com.br/',
+      'code': code
     });
-    return objectCodeFromApi.data.access_token;
+    var config = {
+      method: 'post',
+      url: 'https://graph.facebook.com/oauth/access_token',
+      headers: { 
+        'client_id': '812880569961304', 
+        'client_secret': 'b2691206bea05c9e73af5a1005b9f10c', 
+        'grant_type': 'authorization_code', 
+        'redirect_uri': 'https://catalogador.com.br/', 
+        'code': code, 
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data : data
+    };
+    const userDataReponse = await axios(config);
+    const { access_token } = userDataReponse.data;
+    return access_token;
   } catch (error) {
-    console.log(error);
+    console.log(error,"in tradeCodeForToken");
     return null;
   }
 }
 
+
 async function getPageProfileId(token) {
   try {
     const userDataReponse = await axios.get(
-      `https://graph.facebook.com/v15.0/me/accounts?fields=ids_for_pages&access_token=${token}`
+      `https://graph.facebook.com/me?fields=id,name&access_token=${token}`
     );
     const {
-      data: [{ id }],
+     id,
     } = userDataReponse.data;
     return id;
   } catch (error) {
@@ -41,6 +60,7 @@ async function getInstagramProfileId(pageId, token) {
 
     return id;
   } catch (error) {
+    console.log(error)
     return null;
   }
 }
@@ -117,9 +137,9 @@ async function getListOfRecentHashTags(tagId, instagramId, token) {
 }
 
 export {
+  getInstagramProfileId,
   tradeCodeForToken,
   getPageProfileId,
-  getInstagramProfileId,
   getNumberOfMedias,
   getMediasFromProfile,
   getCaptionByMediaId,

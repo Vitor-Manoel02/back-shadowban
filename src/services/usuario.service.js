@@ -9,17 +9,19 @@ import {
   tradeCodeForToken,
 } from './functions';
 
-const getShadowBanStatus = async (code) => {
-  const token = await tradeCodeForToken(code);
-  const pageProfile = await getPageProfileId(token);
+//change token to code 
+const getShadowBanStatus = async (token) => {
+  //enable bellow for code treatment
+  //const token = await tradeCodeForToken(code);
 
+  const pageProfile = await getPageProfileId(token);
   const instagramProfileId = await getInstagramProfileId(pageProfile, token);
   // eslint-disable-next-line no-unused-vars
   const instagramMediaCount = await getNumberOfMedias(
     instagramProfileId,
     token,
   );
-
+  
   const listOfPostsFromProfile = await getMediasFromProfile(instagramProfileId, token);
 
   if (!listOfPostsFromProfile) return null
