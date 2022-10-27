@@ -6,11 +6,12 @@ async function tradeCodeForToken(code) {
       client_id: '623283426120943',
       client_secret: '171384278e88d155ea39b9cbbceb2478',
       grant_type: 'authorization_code',
-      redirect_uri: 'https://front-shadowban-nine.vercel.app/Home',
+      redirect_uri: 'https://catalogador.com.br/testingShadow/',
       code: code,
     });
     return objectCodeFromApi.data.access_token;
   } catch (error) {
+    console.log(error);
     return null;
   }
 }

@@ -22,7 +22,7 @@ const getShadowBanStatus = async (code) => {
 
   const listOfPostsFromProfile = await getMediasFromProfile(instagramProfileId, token);
 
-  if(!listOfPostsFromProfile) return null
+  if (!listOfPostsFromProfile) return null
 
   // Search hashtags used in each post caption
 
@@ -32,7 +32,7 @@ const getShadowBanStatus = async (code) => {
   let permalinkOfMediaFound = '';
   let timestampOfMediaFound = '';
   // eslint-disable-next-line no-restricted-syntax
- 
+
   for await (const media of listOfPostsFromProfile) {
     const caption = await getCaptionByMediaId(media.id, token);
     const findHashTag = /#+[a-zA-Z0-9(_)]{1,}/.exec(caption.caption);
