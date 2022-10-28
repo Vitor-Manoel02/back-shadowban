@@ -38,11 +38,9 @@ async function tradeCodeForToken(code) {
 async function getPageProfileId(token) {
   try {
     const userDataReponse = await axios.get(
-      `https://graph.facebook.com/me?fields=id,name&access_token=${token}`
+      `https://graph.facebook.com/v15.0/me/accounts?fields=ids_for_pages&access_token=${token}`
     );
-    const {
-     id,
-    } = userDataReponse.data;
+    const { data: [{ id }] } = userDataReponse.data;
     return id;
   } catch (error) {
     return null;
@@ -65,18 +63,18 @@ async function getInstagramProfileId(pageId, token) {
   }
 }
 
-async function getNumberOfMedias(instagramProfileId, token) {
-  try {
-    const userDataReponse = await axios.get(
-      `https://graph.facebook.com/v15.0/${instagramProfileId}?fields=media_count&access_token=${token}`
-    );
-    const { media_count } = userDataReponse.data;
+// async function getNumberOfMedias(instagramProfileId, token) {
+//   try {
+//     const userDataReponse = await axios.get(
+//       `https://graph.facebook.com/v15.0/${instagramProfileId}?fields=media_count&access_token=${token}`
+//     );
+//     const { media_count } = userDataReponse.data;
 
-    return media_count;
-  } catch (error) {
-    return null;
-  }
-}
+//     return media_count;
+//   } catch (error) {
+//     return null;
+//   }
+// }
 
 async function getMediasFromProfile(instagramProfileId, token) {
   try {
@@ -127,7 +125,7 @@ async function getHashtagId(instagramProfileId, hashtagName, token) {
 async function getListOfRecentHashTags(tagId, instagramId, token) {
   try {
     const listOfRecentTags = await axios.get(
-      `https://graph.facebook.com/v15.0/${tagId}/recent_media?fields=id&user_id=${instagramId}&access_token=${token}`
+      `https://graph.facebook.com/v15.0/${tagId}/top_media?fields=id&user_id=${instagramId}&access_token=${token}`
     );
     const { data } = listOfRecentTags.data;
     return data;
@@ -140,7 +138,7 @@ export {
   getInstagramProfileId,
   tradeCodeForToken,
   getPageProfileId,
-  getNumberOfMedias,
+  // getNumberOfMedias,
   getMediasFromProfile,
   getCaptionByMediaId,
   getHashtagId,

@@ -7,8 +7,8 @@ const ShadowSearch = async (req, res) => {
   const { token } = req.headers;
   const userData = await getShadowBanStatus(token);
 
-  if(!userData) return res.status(500).json({
-    message: 'Erro interno'
+  if(userData.errors!=0) return res.status(500).json({
+    message: "ERRO:"+userData.errors,
   })
 
   if (!userData.shadowBanned) {
@@ -28,8 +28,8 @@ const ShadowSearch = async (req, res) => {
 const UserData = async (req, res) => {
   const { token } = req.headers;
   const userData = await getShadowBanStatus(token);
-  if(!userData) return res.status(500).json({
-    message: 'Erro interno'
+  if(userData.errors!=0) return res.status(500).json({
+    message: "ERRO:"+userData.errors,
   })
 
   return res.status(200).json({
