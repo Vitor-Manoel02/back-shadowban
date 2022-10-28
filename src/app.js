@@ -9,8 +9,8 @@ app.use(cors())
 app.use(json())
 app.use(routes)
 
-app.listen(3010, () => {
-  console.log('Ouvindo a porta 3010');
+app.listen(4000, () => {
+  console.log('Ouvindo a porta 4000');
 });
 
 

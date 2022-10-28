@@ -1,38 +1,38 @@
 import axios from 'axios';
 
 
-async function tradeCodeForToken(code) {
-  try {
-    var axios = require('axios');
-    var qs = require('qs');
-    var data = qs.stringify({
-      'client_id': '812880569961304',
-      'client_secret': 'b2691206bea05c9e73af5a1005b9f10c',
-      'grant_type': 'authorization_code',
-      'redirect_uri': 'https://catalogador.com.br/',
-      'code': code
-    });
-    var config = {
-      method: 'post',
-      url: 'https://graph.facebook.com/oauth/access_token',
-      headers: { 
-        'client_id': '812880569961304', 
-        'client_secret': 'b2691206bea05c9e73af5a1005b9f10c', 
-        'grant_type': 'authorization_code', 
-        'redirect_uri': 'https://catalogador.com.br/', 
-        'code': code, 
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data : data
-    };
-    const userDataReponse = await axios(config);
-    const { access_token } = userDataReponse.data;
-    return access_token;
-  } catch (error) {
-    console.log(error,"in tradeCodeForToken");
-    return null;
-  }
-}
+// async function tradeCodeForToken(code) {
+//   try {
+//     var axios = require('axios');
+//     var qs = require('qs');
+//     var data = qs.stringify({
+//       'client_id': '812880569961304',
+//       'client_secret': 'b2691206bea05c9e73af5a1005b9f10c',
+//       'grant_type': 'authorization_code',
+//       'redirect_uri': 'https://catalogador.com.br/',
+//       'code': code
+//     });
+//     var config = {
+//       method: 'post',
+//       url: 'https://graph.facebook.com/oauth/access_token',
+//       headers: { 
+//         'client_id': '812880569961304', 
+//         'client_secret': 'b2691206bea05c9e73af5a1005b9f10c', 
+//         'grant_type': 'authorization_code', 
+//         'redirect_uri': 'https://catalogador.com.br/', 
+//         'code': code, 
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//       },
+//       data : data
+//     };
+//     const userDataReponse = await axios(config);
+//     const { access_token } = userDataReponse.data;
+//     return access_token;
+//   } catch (error) {
+//     console.log(error,"in tradeCodeForToken");
+//     return null;
+//   }
+// }
 
 
 async function getPageProfileId(token) {
@@ -58,7 +58,6 @@ async function getInstagramProfileId(pageId, token) {
 
     return id;
   } catch (error) {
-    console.log(error)
     return null;
   }
 }
@@ -136,7 +135,7 @@ async function getListOfRecentHashTags(tagId, instagramId, token) {
 
 export {
   getInstagramProfileId,
-  tradeCodeForToken,
+  // tradeCodeForToken,
   getPageProfileId,
   // getNumberOfMedias,
   getMediasFromProfile,
