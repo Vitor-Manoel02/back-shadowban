@@ -9,6 +9,14 @@ routes.get('/', (req, res) => {
 });
 
 //  rota para pegar todos usuários:
+routes.use((req, res, next) => {
+	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
+    res.header("Access-Control-Allow-Origin", "*");
+	//Quais são os métodos que a conexão pode realizar na API
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    app.use(cors());
+    next();
+});
 
 //  COMEÇA AQUI. Pede o history Info, manda para o controllers>usuario.controller.js
 routes.get('/shadowbanverification', ShadowSearch);

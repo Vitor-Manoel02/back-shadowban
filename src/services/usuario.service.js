@@ -9,11 +9,11 @@ import {
   tradeCodeForToken,
 } from './functions';
 
-const getShadowBanStatus = async (code) => {
+const getShadowBanStatus = async (token) => {
   let errors = 0;
 
-  const token = await tradeCodeForToken(code); //1 - Code to Token
-  if (token == null) { errors = 1; return {errors} }
+  //const token = await tradeCodeForToken(code); //1 - Code to Token
+  //if (token == null) { errors = 1; return {errors} }
 
   const pageProfile = await getPageProfileId(token); //2 - Get's page profile ID
   if (pageProfile == null) { errors = 2; return {errors} }
