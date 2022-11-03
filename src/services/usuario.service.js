@@ -11,7 +11,7 @@ import {
 
 const getShadowBanStatus = async (token) => {
   let errors = 0;
-
+console.log(token)
   //const token = await tradeCodeForToken(code); //1 - Code to Token
   //if (token == null) { errors = 1; return {errors} }
 
