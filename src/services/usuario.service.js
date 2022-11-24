@@ -11,7 +11,7 @@ import {
 
 const getShadowBanStatus = async (token) => {
   let errors = 0;
-console.log(token)
+  console.log(token);
   //const token = await tradeCodeForToken(code); //1 - Code to Token
   //if (token == null) { errors = 1; return {errors} }
 
@@ -101,20 +101,22 @@ console.log(token)
 };
 
 const verifyPageAndProfile = async (token) => {
-  const pageProfile = await getPageProfileId(token); 
-  
-  const instagramProfileId = await getInstagramProfileId(pageProfile, token); 
-  
+  const pageProfile = await getPageProfileId(token);
+
+  const instagramProfileId = await getInstagramProfileId(pageProfile, token);
+
   return { pageProfile, instagramProfileId };
 };
 
 const verifyPostAndHashtag = async (token) => {
+  const pageProfile = await getPageProfileId(token);
 
-  const pageProfile = await getPageProfileId(token); 
+  const instagramProfileId = await getInstagramProfileId(pageProfile, token);
 
-  const instagramProfileId = await getInstagramProfileId(pageProfile, token); 
-
-  const listOfPostsFromProfile = await getMediasFromProfile(instagramProfileId, token);
+  const listOfPostsFromProfile = await getMediasFromProfile(
+    instagramProfileId,
+    token
+  );
 
   let hashTag = '';
   let idOfTheMediaFound = 0;
@@ -135,12 +137,15 @@ const verifyPostAndHashtag = async (token) => {
     }
   }
 
-  const hashtagId = await getHashtagId(instagramProfileId, hashTag.replace('#', ''), token); 
+  const hashtagId = await getHashtagId(
+    instagramProfileId,
+    hashTag.replace('#', ''),
+    token
+  );
 
-  return{
+  return {
     hashtagId,
-  }
-  
+  };
 };
 
 export { getShadowBanStatus, verifyPageAndProfile, verifyPostAndHashtag };

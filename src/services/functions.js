@@ -38,11 +38,11 @@ async function getPageProfileId(token) {
     const userDataReponse = await axios.get(
       `https://graph.facebook.com/v15.0/me/accounts?fields=ids_for_pages&access_token=${token}`
     );
-
+    
     const {
       data: [{ id }],
     } = userDataReponse.data;
-
+    
     return id;
   } catch (error) {
     console.log(error);

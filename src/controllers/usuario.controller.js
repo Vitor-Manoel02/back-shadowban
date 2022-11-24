@@ -32,6 +32,7 @@ const ShadowSearch = async (req, res) => {
 
 const sendverifyPageAndProfile = async (req, res) => {
   const { token } = req.headers;
+  console.log(token);
   const userData = await verifyPageAndProfile(token);
 
   if (!userData.pageProfile)
