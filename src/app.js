@@ -1,6 +1,7 @@
 import express,{json} from 'express';
 import cors from 'cors';
-import routes from './routes';
+import routes from './routes/index.js';
+import 'dotenv/config'
 
 
 const app = express()
@@ -9,7 +10,7 @@ app.use(cors())
 app.use(json())
 app.use(routes)
 
-app.listen(4000, () => {
+app.listen(process.env.PORT, () => {
   console.log('Ouvindo a porta 4000');
 });
 

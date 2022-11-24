@@ -7,7 +7,7 @@ import {
   getHashtagId,
   getListOfRecentHashTags,
   // tradeCodeForToken,
-} from './functions';
+} from './functions.js';
 
 const getShadowBanStatus = async (token) => {
   let errors = 0;

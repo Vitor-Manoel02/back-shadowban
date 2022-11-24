@@ -1,6 +1,10 @@
 //  rota inicial:
 import { Router } from 'express';
-import { ShadowSearch, sendverifyPageAndProfile, verifyRecentPostWithHashtag } from '../controllers/usuario.controller';
+import {
+  ShadowSearch,
+  sendverifyPageAndProfile,
+  verifyRecentPostWithHashtag,
+} from '../controllers/usuario.controller.js';
 
 const routes = new Router();
 
