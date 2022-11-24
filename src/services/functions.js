@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 // async function tradeCodeForToken(code) {
 //   try {
 //     var axios = require('axios');
@@ -15,12 +14,12 @@ import axios from 'axios';
 //     var config = {
 //       method: 'post',
 //       url: 'https://graph.facebook.com/oauth/access_token',
-//       headers: { 
-//         'client_id': '812880569961304', 
-//         'client_secret': 'b2691206bea05c9e73af5a1005b9f10c', 
-//         'grant_type': 'authorization_code', 
-//         'redirect_uri': 'https://catalogador.com.br/', 
-//         'code': code, 
+//       headers: {
+//         'client_id': '812880569961304',
+//         'client_secret': 'b2691206bea05c9e73af5a1005b9f10c',
+//         'grant_type': 'authorization_code',
+//         'redirect_uri': 'https://catalogador.com.br/',
+//         'code': code,
 //         'Content-Type': 'application/x-www-form-urlencoded'
 //       },
 //       data : data
@@ -34,19 +33,19 @@ import axios from 'axios';
 //   }
 // }
 
-
 async function getPageProfileId(token) {
   try {
     const userDataReponse = await axios.get(
       `https://graph.facebook.com/v15.0/me/accounts?fields=ids_for_pages&access_token=${token}`
-      
     );
-    
-    const { data: [{ id }] } = userDataReponse.data;
-    
+
+    const {
+      data: [{ id }],
+    } = userDataReponse.data;
+
     return id;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return null;
   }
 }
@@ -133,7 +132,7 @@ async function getListOfRecentHashTags(tagId, instagramId, token) {
     const { data } = listOfRecentTags.data;
     return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return null;
   }
 }
