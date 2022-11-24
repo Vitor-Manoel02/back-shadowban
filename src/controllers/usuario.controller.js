@@ -2,7 +2,7 @@ import {
   getShadowBanStatus,
   verifyPageAndProfile,
   verifyPostAndHashtag,
-} from '../services/usuario.service';
+} from '../services/usuario.service.js';
 // eslint-disable-next-line max-len
 //  Aqui é a segunda execução. Solicita o services>usuario.service.js e também informa o ?ticker=nome
 //  Ele só solicita a função do service. poderia ser feita aqui também.
